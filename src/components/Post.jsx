@@ -10,7 +10,7 @@ const Post = ({ post }) => {
         <div className="card post-card bg-dark text-white" >
             <div className="card-body ">
                 <h5 className="card-title">{post.title}<span className="badge bg-success reaction"><BsHandThumbsUp /> {post.reactions}</span>
-                    <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" onClick={() => deletePost(post.id)}>
+                    <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger deletePost" onClick={() => deletePost(post.id)}>
                         <RiChatDeleteFill />
                         <span className="visually-hidden">unread messages</span>
                     </span>

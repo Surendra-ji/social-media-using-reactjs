@@ -50,3 +50,7 @@
 .spinner {
     margin-top: 50px;
 }
+
+.deletePost {
+    cursor: pointer;      
+}
