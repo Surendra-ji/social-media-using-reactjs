@@ -8,11 +8,11 @@ Currently, two official plugins are available:
 - [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
 
 When there is no posts
-![Alt text](nopost.png)
+![Alt text](noposts.png)
 
 Home Page
-![Alt text](./src/assets/image.png)
-![Alt text](./src/assets/image2.png)
+![Alt text](./src/assets/home.png)
+![Alt text](./src/assets/home1.png)
 
 Create Post page
 ![Alt text](./src/assets/image3.png)
