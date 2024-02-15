@@ -2,6 +2,11 @@
     display: flex;
 }
 
+.sidebar {
+    width: 240px;
+    height: 48rem;
+}
+
 .content {
     width: 100%;
 }
@@ -11,7 +16,7 @@
 
 .post-card {
     margin: 20px 50px;
-    width: 30rem;
+    width: 38rem;
 }
 
 .reaction {
