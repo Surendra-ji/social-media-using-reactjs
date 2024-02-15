@@ -3,8 +3,8 @@
 }
 
 .sidebar {
-    width: 240px;
-    height: 48rem;
+    width: 15%;
+    min-height: 48rem;
 }
 
 .content {
@@ -15,8 +15,7 @@
 }
 
 .post-card {
-    margin: 20px 50px;
-    width: 38rem;
+    width: 45%;
 }
 
 .reaction {
@@ -37,4 +36,13 @@
     width: 20rem;
     font-size: 2rem;
     margin: 10px 0px;
+}
+
+.post-container {
+    display: flex;
+    flex-wrap: wrap;
+    column-gap: 1.5rem;
+    row-gap: 1rem;
+    margin-top: 32px;
+    justify-content: center;
 }

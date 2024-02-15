@@ -4,16 +4,16 @@ const DEFAULT_POST_LIST = [{
     id: '1',
     title: 'Going to Goa',
     body: 'Hi, goa ja rha hu dostoo, tmlog bhi chloge kyaa???',
-    reaction: 299,
-    userID: "user-9",
+    reactions: 299,
+    userId: "user-9",
     tags: ["vaction", "enjoying", "Goa"]
 },
 {
     id: '2',
     title: 'Manali time',
     body: 'Hi, Manali ja rha hu dostoo, tmlog bhi chloge kyaa??? bs 6000 lagega perpeson',
-    reaction: 800,
-    userID: "user-2",
+    reactions: 800,
+    userId: "user-2",
     tags: ["vaction", "friends", "Manali"]
 }
 ]
@@ -21,6 +21,7 @@ const DEFAULT_POST_LIST = [{
 export const PostlistContext = createContext({
     postList: [],
     addPost: () => { },
+    addInitialPosts: () => { },
     deletePost: () => { }
 });
 
@@ -31,16 +32,16 @@ const postListReducer = (currPostList, action) => {
             (post) => post.id !== action.payload.id
         );
     } else if (action.type === "ADD_POST") {
-        console.log(action.payload.id);
-        console.log(action.payload);
         newPostList = [...currPostList, action.payload]
+    } else if (action.type === "ADD_INITIAL_POSTS") {
+        newPostList = action.payload;
     }
     return newPostList;
 
 }
 
 const PostListProvider = ({ children }) => {
-    const [postList, dispatchPostlist] = useReducer(postListReducer, DEFAULT_POST_LIST);
+    const [postList, dispatchPostlist] = useReducer(postListReducer, []);
     let lastObjId = 0;
     if (postList.length >= 1) {
         const lastObj = postList[postList.length - 1];
@@ -53,12 +54,18 @@ const PostListProvider = ({ children }) => {
                 id: 1 + Number(lastObjId),
                 title: title,
                 body: content,
-                reaction: numReactions,
+                reactions: numReactions,
                 tags: tags.split(' '),
-                userID: userID
+                userId: userID
             }
         })
     }
+    const addInitialPosts = (posts) => {
+        dispatchPostlist({
+            type: "ADD_INITIAL_POSTS",
+            payload: posts
+        })
+    } 
     const deletePost = (id) => {
         dispatchPostlist({
             type: "DELETE_POST",
@@ -69,7 +76,8 @@ const PostListProvider = ({ children }) => {
     }
     return <PostlistContext.Provider value={{
         postList,
-        addPost: addPost,
+        addPost,
+        addInitialPosts,
         deletePost
     }}>{children}</PostlistContext.Provider>;
 };
