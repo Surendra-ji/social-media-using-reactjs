@@ -5,8 +5,10 @@ import { TfiWrite } from "react-icons/tfi";
 import { LiaHashtagSolid } from "react-icons/lia";
 import { useContext, useRef } from "react";
 import { PostlistContext } from "../store/post-list-store";
+import {  useNavigate } from "react-router-dom";
 
 const CreatePost = () => {
+    const navigate = useNavigate();
     
     const {addPost} = useContext(PostlistContext);
     const userIDElement = useRef();
@@ -22,12 +24,30 @@ const CreatePost = () => {
         const content = contentElement.current.value;
         const numReactions = numReactionsElement.current.value;
         const tags = tagsElement.current.value;
-        addPost(userID,title,content,numReactions,tags);
+        // addPost(userID,title,content,numReactions,tags);
         userIDElement.current.value = "";
         titleElement.current.value = "";
         contentElement.current.value = "";
         numReactionsElement.current.value = "";
         tagsElement.current.value = "";
+
+        fetch('https://dummyjson.com/posts/add', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+                title: title,
+                body: content,
+                reactions: numReactions,
+                tags: tags.split(' '),
+                userId: userID
+        })
+        })
+        .then(res => res.json())
+        .then(post => {
+            // console.log(post);
+            addPost(post)
+            navigate('/');
+        });
     }
     
     return <>

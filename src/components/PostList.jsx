@@ -3,32 +3,30 @@ import Post from "./Post";
 import { PostlistContext } from "../store/post-list-store";
 import WelcomeMsg from "./WelcomeMsg";
 import Loader from "./Loader";
+import { useLoaderData } from "react-router-dom";
 
 const PostList = () => {
-    const { postList, addInitialPosts } = useContext(PostlistContext);
-    const [fetching, setfetching] = useState(false);
+    // const { postList, fetching } = useContext(PostlistContext);
+    const fetching = false;
+    const postList = useLoaderData();
     
-    useEffect(() => {
-        setfetching(true);
-        const controller = new AbortController();
-        const signal = controller.signal;
-        fetch('https://dummyjson.com/posts', {signal})
-            .then(res => res.json())
-            .then((data) => {addInitialPosts(data.posts)
-            setfetching(false);
-            })
-            return () => {
-                controller.abort();
-                console.log("fetch closed....");
-            };
-    }, [])
     
     return <>
-        {fetching && <Loader/>}
-        {!fetching && postList.length === 0 && <WelcomeMsg/>}
+        {/* {fetching && <Loader/>} */}
+        { postList.length === 0 && <WelcomeMsg/>}
         <div className="post-container">
-            {!fetching && postList.map((post) => <Post key={post.id} post={post} />)}
+            {postList.map((post) => <Post key={post.id} post={post} />)}
         </div>
     </>
+}
+
+export const postLoader = () => {
+   return fetch('https://dummyjson.com/posts')
+            .then(res => res.json())
+            .then((data) => {
+                // addInitialPosts(data.posts)
+                return data.posts;
+            // setfetching(false);
+            })
 }
 export default PostList;
